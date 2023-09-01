@@ -11,10 +11,11 @@ if haskey(ENV, "DOCSARGS")
 end
 
 # Generate a Documenter-friendly changelog from CHANGELOG.md
-include("changelog.jl")
-rewrite_changelog(;
-    changelog_inputfile = joinpath(dirname(@__DIR__), "CHANGELOG.md"),
-    changelog_outputfile = joinpath(@__DIR__, "src", "release-notes.md"),
+import Changelog
+Changelog.generate(
+    Changelog.Documenter(),
+    joinpath(@__DIR__, "..", "CHANGELOG.md"),
+    joinpath(@__DIR__, "src", "release-notes.md");
     repo = "JuliaDocs/Documenter.jl",
 )
 
